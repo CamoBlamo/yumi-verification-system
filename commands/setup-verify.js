@@ -1,4 +1,4 @@
-import {
+const {
   SlashCommandBuilder,
   ContainerBuilder,
   ActionRowBuilder,
@@ -9,17 +9,18 @@ import {
   SeparatorSpacingSize,
   TextDisplayBuilder,
   MessageFlags
-} from "discord.js"
+} = require("discord.js")
 
-export const data = new SlashCommandBuilder()
-  .setName("setup-verify")
-  .setDescription("Post the Yumi account verification panel in this channel.")
-  .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("setup-verify")
+    .setDescription("Post the Yumi account verification panel in this channel.")
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
-export async function execute(interaction) {
-  const row = new ActionRowBuilder().addComponents(
-    new ButtonBuilder()
-      .setCustomId("yumi-verify")
+  async execute(interaction) {
+    const row = new ActionRowBuilder().addComponents(
+      new ButtonBuilder()
+        .setCustomId("yumi-verify")
       .setLabel("Verify")
       .setStyle(ButtonStyle.Primary)
   )
@@ -44,4 +45,5 @@ export async function execute(interaction) {
   })
 
   await interaction.reply({ content: "Verification panel posted.", ephemeral: true })
+}
 }
